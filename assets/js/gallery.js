@@ -6,25 +6,44 @@ let isCardExpanded = false;
 window.addEventListener("load", initApp);
 
 function initApp() {
+    createLoadingIcon();
+    showLoadingIcon();
+
     fetchData();
-    myApp = document.getElementById('app');
-    createLoadingScreen();
 }
 
-function createLoadingScreen() {
-    const app = document.getElementById('app');
+function createLoadingIcon() {
+    const loadingIcon = document.createElement('div');
+    loadingIcon.id = 'loading-icon';
 
-    const loadingMessage = document.createElement('div');
-    loadingMessage.textContent = 'Loading...';
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
 
-    app.appendChild(loadingMessage);
+    loadingIcon.appendChild(spinner);
+
+    document.body.appendChild(loadingIcon);
+}
+
+function showLoadingIcon() {
+    const loadingIcon = document.getElementById('loading-icon');
+    if (loadingIcon) {
+        loadingIcon.style.display = 'block';
+    }
+}
+
+function hideLoadingIcon() {
+    const loadingIcon = document.getElementById('loading-icon');
+    if (loadingIcon) {
+        loadingIcon.style.display = 'none';
+    }
 }
 
 function initGallery(dataReceived) {
     myData = dataReceived;
 
-    resetGallery();
+    hideLoadingIcon();
 
+    resetGallery();
     buildGallery();
 }
 
